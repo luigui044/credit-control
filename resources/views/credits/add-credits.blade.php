@@ -19,7 +19,7 @@
 @section('content')
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-7">
 
             <div class="card card-primary">
                 <div class="card-header">
@@ -45,7 +45,7 @@
                         </div>
                     @endif
 
-                    <form id="form1" action="{{ route('saveClient') }}" method="POST">
+                    <form id="form1" action="{{ route('saveCredit') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -76,7 +76,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group" id="div-precio-casa">
                                     <label for="price">Valor de casa($)</label>
                                     <input type="text" class="form-control campo-requerido" id="price" name="price"
@@ -84,10 +84,57 @@
 
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="monto">Monto total de crédito($)</label>
+                                    <label for="interes">Interés anual(%)</label>
+                                    <input type="text" class="form-control campo-requerido recCredit" id="interes"
+                                        name="interes" placeholder="Tasa de interés" required value="8.5">
+                                    @error('interes')
+                                        <span class="alert text-danger alerta ">El porcentaje de interés anual es
+                                            requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="years">Cantidad de años</label>
+                                    <input type="text" class="form-control campo-requerido recCredit" id="years"
+                                        name="years" placeholder="Tasa de interés" required value="5">
+                                    @error('interes')
+                                        <span class="alert text-danger alerta">La cantidad de años del crédito es
+                                            requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="years">Prima(%)</label>
+                                    <select class="form-control campo-requerido recCredit" id="prima" name="prima"
+                                        required>
+
+
+                                        <option value="10">10%</option>
+                                        <option value="20">20%</option>
+                                    </select>
+                                    @error('prima1')
+                                        <span class="alert text-danger alerta">El porcentaje de prima es
+                                            requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="primaMount">Monto de prima($)</label>
+                                    <input type="text" class="form-control campo-requerido" id="primaMount"
+                                        name="primaMount" placeholder="Monto de prima" readonly required>
+                                    @error('primaMount')
+                                        <span class="alert text-danger alerta">El monto de prima es requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="monto">Total de crédito($)</label>
                                     <input type="text" class="form-control campo-requerido" id="monto" name="monto"
                                         placeholder="Monto del crédito" readonly required>
                                     @error('monto')
@@ -95,18 +142,8 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="interes">Interés anual(%)</label>
-                                    <input type="text" class="form-control campo-requerido" id="interes" name="interes"
-                                        placeholder="Tasa de interés" required value="8.5">
-                                    @error('interes')
-                                        <span class="alert text-danger alerta">El porcentaje de interés anual es
-                                            requerido</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="interes">Interés mensual(%)</label>
                                     <input type="text" class="form-control campo-requerido" id="interesMensual"
@@ -114,34 +151,24 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="interes">Cuota mensual($)</label>
-                                    <input type="text" class="form-control campo-requerido" id="cuota" name="cuota"
-                                        placeholder="cuota" readonly>
+                                    <input type="text" class="form-control campo-requerido" id="cuota"
+                                        name="cuota" placeholder="cuota" readonly>
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="years">Cantidad de años</label>
-                                    <input type="text" class="form-control campo-requerido" id="years" name="years"
-                                        placeholder="Tasa de interés" required value="5">
-                                    @error('interes')
-                                        <span class="alert text-danger alerta">La cantidad de años del crédito es
-                                            requerido</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="interes">Cantidad de meses</label>
-                                    <input type="text" class="form-control campo-requerido" id="meses" name="meses"
-                                        placeholder="Cantidad de meses" readonly>
+                                    <input type="text" class="form-control campo-requerido" id="meses"
+                                        name="meses" placeholder="Cantidad de meses" readonly>
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="fecIni">Fecha de inicio</label>
                                     <input type="date" class="form-control campo-requerido" id="fecIni"
@@ -151,27 +178,27 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="fecFin">Fecha de finalización</label>
                                     <input type="date" class="form-control campo-requerido" id="fecFin"
-                                        name="fecFin" placeholder="Fecha de inicio" required>
+                                        name="fecFin" placeholder="Fecha de inicio" readonly required>
                                     @error('fecFin')
                                         <span class="alert text-danger alerta">La fecha de finalización es requerida</span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="interes">Seguro de deuda</label>
-                                    <div class="form-check form-check-inline">
+                                    <div class="form-check form-check-inline recCredit">
                                         <input class="form-check-input" type="radio" required id="seguro"
                                             name="seguro" value="1">
                                         <label class="form-check-label" for="seguro1">Incluir</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="seguro0" name="seguro"
-                                            value="0">
+                                    <div class="form-check form-check-inline recCredit">
+                                        <input class="form-check-input" type="radio" checked id="seguro0"
+                                            name="seguro" value="0">
                                         <label class="form-check-label" for="seguro0">No incluir</label>
                                     </div>
                                     @error('interes')
@@ -180,16 +207,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="prima">Monto de prima($)</label>
-                                    <input type="text" class="form-control campo-requerido" id="prima"
-                                        name="prima" placeholder="Monto de prima" required>
-                                    @error('prima')
-                                        <span class="alert text-danger alerta">El monto de prima es requerido</span>
-                                    @enderror
-                                </div>
-                            </div>
+
 
                         </div>
 
@@ -209,7 +227,7 @@
 
 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
 
             <div class="card card-primary">
                 <div class="card-header">

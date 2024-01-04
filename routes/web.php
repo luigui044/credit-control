@@ -36,6 +36,7 @@ Route::put('/desactivar-cliente/{id}/{state}', [ClientController::class, 'disabl
 ///rutas de creditos
 Route::get('/creditos',[CreditController::class, 'getCredits'])->name('getCredits');
 Route::get('/agregar-creditos',[CreditController::class, 'addCredits'])->name('addCredits');
+Route::post('/agregar-creditos',[CreditController::class, 'saveCredits'])->name('saveCredits');
 ///rutas de casas
 
 Route::get('/casas',[HouseController::class, 'getHouses'])->name('getHouses');
