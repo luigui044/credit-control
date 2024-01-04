@@ -19,7 +19,6 @@ $('#casa').change(function () {
             var interesMensual = $('#interesMensual');
             var cuota = $('#cuota');
             var precioCasa = $('#price');
-            var anios = $('#years');
             var interes = $('#interes');
             var meses = $('#meses');
 
