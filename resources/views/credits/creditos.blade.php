@@ -38,15 +38,15 @@
                     <thead class="thead-light">
                         <tr>
                             <th>ID Crédito</th>
-                            <th>Cliente</th>
-                            <th>Casa</th>
+                            {{-- <th>Cliente</th>
+                            <th>Casa</th> --}}
                             <th>Monto Total</th>
-                            <th>Saldo Restante</th>
+                            <th>Capital Restante</th>
                             <th>Fecha de Inicio</th>
                             <th>Fecha de Final</th>
                             <th>Interés anual</th>
                             <th>Prima</th>
-                            <th>Seguro de deuda</th>
+                            <th>Seguro</th>
 
                         </tr>
                     </thead>
@@ -55,19 +55,19 @@
                             <tr>
 
                                 <td>{{ $item->id_credito }}</td>
-                                <td>{{ $item->id_cliente }}</td>
-                                <td>{{ $item->id_casa }}</td>
-                                <td>{{ $item->monto_total }}</td>
-                                <td>{{ $item->saldo_restante }}</td>
+                                {{-- <td>{{ $item->id_cliente }}</td>
+                                <td>{{ $item->id_casa }}</td> --}}
+                                <td>$ {{ $item->monto_total }}</td>
+                                <td>$ {{ $item->saldo_restante }}</td>
                                 <td>{{ $item->fecha_inicio }}</td>
                                 <td>{{ $item->fecha_fin }}</td>
-                                <td>{{ $item->tasa_interes_anual }}</td>
-                                <td>{{ $item->prima }}</td>
+                                <td>{{ $item->tasa_interes_anual }} %</td>
+                                <td>{{ $item->prima }} %</td>
                                 <th><b>
                                         @if ($item->seguro_deuda == 1)
-                                            <span class="badge badge-success"> Activo</span>
+                                            <span class="badge badge-success"> SI</span>
                                         @else
-                                            <span class="badge badge-danger"> Inactivo</span>
+                                            <span class="badge badge-danger"> No</span>
                                         @endif
                                     </b></th>
                                 {{-- <td> 

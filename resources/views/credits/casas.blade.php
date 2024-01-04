@@ -56,7 +56,11 @@
                                 <td>{{ $item->descripcion }}</td>
 
                                 <td>
-                                    <span class="badge badge-success"> {{ $item->estado }}</span>
+                                    @if ($item->estado == 'Disponible')
+                                        <span class="badge badge-success"> {{ $item->estado }}</span>
+                                    @else
+                                        <span class="badge badge-info"> {{ $item->estado }}</span>
+                                    @endif
                                 </td>
 
                             </tr>

@@ -29,18 +29,19 @@ class CreditController extends Controller
         return view('credits.add-credits',compact('clientes','casas'));
     }
     
-    function saveCredits(Request $req)
+    function saveCredit(Request $req)
     {
         $newCredit = new TCredito();
         $newCredit->id_casa = $req->casa;
         $newCredit->id_cliente = $req->cliente;
-        $newCredit->monto_total = $req->monto;
-        $newCredit->saldo_restante = $req->monto - $req->prima;
+        $newCredit->precio_casa = $req->price;
+        $newCredit->saldo_restante = $req->price - $req->primaMount;
+        $newCredit->monto_total = str_replace(',', '', $req->monto) ;
         $newCredit->tiempo_total = $req->years;
         $newCredit->fecha_inicio = $req->fecIni;
         $newCredit->fecha_fin = $req->fecFin;
         $newCredit->tasa_interes_anual = $req->interes;
-        if ($req->interes ==1) {
+        if ($req->interes =='1') {
             $newCredit->costo_seguro= 15;
         }
         else
@@ -51,6 +52,15 @@ class CreditController extends Controller
         $newCredit->seguro_deuda = $req->seguro;
         $newCredit->prima = $req->prima;
         $newCredit->save();
+
+        $casa = TCasa::find($req->casa);
+        $casa->estado= 3;
+        $casa->save();
+        $cliente = TCliente::find($req->cliente);
+        $cliente->estado = 4;
+        $cliente->save();
+
+        return back();
     }
     
 

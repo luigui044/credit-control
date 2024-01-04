@@ -56,11 +56,25 @@
                             <td>{{ $item->telefono }}</td>
                             <td>{{ $item->correo }}</td>
                             <th><b>
-                                    @if ($item->estado == 1)
-                                        <span class="badge badge-success"> Activo</span>
-                                    @else
-                                        <span class="badge badge-danger"> Inactivo</span>
-                                    @endif
+
+                                    @switch($item->estado)
+                                        @case(1)
+                                            <span class="badge badge-success"> Activo</span>
+                                        @break
+
+                                        @case(2)
+                                            <span class="badge badge-danger"> Inactivo</span>
+                                        @break
+
+                                        @case(3)
+                                            <span class="badge badge-warning">Pendiente de pago</span>
+                                        @break
+
+                                        @case(4)
+                                            <span class="badge badge-info"> Con crédito</span>
+                                        @break
+                                    @endswitch
+
                                 </b></th>
                             <td>
                                 <a href="#" onclick="infoClient({{ $item->id_cliente }})" class=" text-info"><i
@@ -71,7 +85,7 @@
                                         class="fas fa-edit"></i></a>
 
 
-                                @if ($item->estado == 1)
+                                @if ($item->estado == 1 || $item->estado == 3 || $item->estado == 4)
                                     <a onclick="stateClient({{ $item->id_cliente }},2)" class="ml-3 text-danger"
                                         data-toggle="popover" data-content="Desactivar usuario" data-trigger="hover"><i
                                             class="fas fa-trash-alt"></i></a>
