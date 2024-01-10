@@ -338,37 +338,14 @@ return [
             'icon_color' => 'yellow'
         ],
         [
-            'text'    => 'Reportes',
-            'icon'    => 'fas fa-chart-pie',
+            'text'    => 'Transacciones',
+            'icon'    => 'fas fa-cash-register',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Pago de Crédito',
+                    'url'  => '/pago-credito',
                 ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+                
                 [
                     'text' => 'level_one',
                     'url'  => '#',

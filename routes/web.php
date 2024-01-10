@@ -5,6 +5,7 @@ use  App\Http\Controllers\HomeController;
 use  App\Http\Controllers\CreditController;
 use  App\Http\Controllers\ClientController;
 use  App\Http\Controllers\HouseController;
+use  App\Http\Controllers\PaymentController;
 
 
 /*
@@ -43,3 +44,6 @@ Route::get('/casas',[HouseController::class, 'getHouses'])->name('getHouses');
 Route::get('/agregar-casa',[HouseController::class, 'addHouse'])->name('addHouse');
 Route::post('/agregar-casa', [HouseController::class, 'saveHouse'])->name('saveHouse');
 Route::post('/valor-casa', [HouseController::class, 'valueHouse'])->name('valueHouse');
+
+///rutas de transacciones
+Route::get('/pago-credito', [PaymentController::class, 'payCredit'])->name('payCredit');
