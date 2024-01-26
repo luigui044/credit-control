@@ -6,6 +6,7 @@ use  App\Http\Controllers\CreditController;
 use  App\Http\Controllers\ClientController;
 use  App\Http\Controllers\HouseController;
 use  App\Http\Controllers\PaymentController;
+use  App\Http\Controllers\ReportController;
 
 
 /*
@@ -47,3 +48,11 @@ Route::post('/valor-casa', [HouseController::class, 'valueHouse'])->name('valueH
 
 ///rutas de transacciones
 Route::get('/pago-credito', [PaymentController::class, 'payCredit'])->name('payCredit');
+Route::post('/get-credits/{id}', [PaymentController::class, 'getCreditsByIdClient'])->name('getCreditsByIdClient');
+Route::post('/get-couta/{credito}', [PaymentController::class, 'getCuotaByIdCredit'])->name('getCuotaByIdCredit');
+Route::post('/save-payment', [PaymentController::class, 'savePayment'])->name('savePayment');
+
+///reportes 
+Route::get('/informe-credito/{id}',[ReportController::class,'reportCredit'])->name('reportCredit');
+Route::get('/generate-pdf/{id}', [ReportController::class, 'generatePDF'])->name('generatePDF');
+Route::get('/test/{id}', [ReportController::class, 'generatePDF2'])->name('generatePDF2');

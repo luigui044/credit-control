@@ -23,15 +23,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-3">
-        <div class="info-box bg-warning">
-            <span class="info-box-icon"><i class="fas fa-file-invoice-dollar"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Clientes de activos</span>
-              <h5 class="info-box-number">410</h5>
-            </div>
-          </div>
-    </div> --}}
+
         <div class="row">
             <div class="col-md-12 " id='div-clientes'>
                 <table id="myTable" class="text-center table-striped table-bordered table-hover" class="display">
@@ -47,7 +39,9 @@
                             <th>Fecha de Final</th>
                             <th>Interés anual</th>
                             <th>Prima</th>
+                            <th>Cuota mensual</th>
                             <th>Seguro</th>
+                            <th> Acciones</th>
 
                         </tr>
                     </thead>
@@ -59,30 +53,27 @@
                                 {{-- <td>{{ $item->id_cliente }}</td>
                                 <td>{{ $item->id_casa }}</td> --}}
                                 <td>{{ $item->tiempo_total }} años</td>
-                                <td>$ {{ $item->monto_total }}</td>
-                                <td>$ {{ $item->saldo_restante }}</td>
+                                <td>${{ $item->monto_total }}</td>
+                                <td>${{ $item->saldo_restante }}</td>
                                 <td>{{ $item->fecha_inicio }}</td>
                                 <td>{{ $item->fecha_fin }}</td>
                                 <td>{{ $item->tasa_interes_anual }} %</td>
-                                <td>{{ $item->prima }} %</td>
-                                <th><b>
+                                <td>${{ $item->prima }}</td>
+                                <td>${{ $item->cuota_mensual }}</td>
+                                <td><b>
                                         @if ($item->seguro_deuda == 1)
                                             <span class="badge badge-success"> SI</span>
                                         @else
                                             <span class="badge badge-danger"> No</span>
                                         @endif
-                                    </b></th>
-                                {{-- <td> 
-                          <a href="#" onclick="infoClient({{ $item->id_cliente }})" class=" text-info"><i class="fas fa-eye" data-toggle="popover"  data-content="Información de usuario" data-trigger="hover"></i></a>
-                          <a href="{{ route('editClient',['id'=>$item->id_cliente])  }}" class="ml-3 text-secondary" data-toggle="popover"  data-content="Editar usuario" data-trigger="hover"><i class="fas fa-edit"></i></a> 
-                        
-  
-                          @if ($item->estado == 1)
-                          <a onclick="stateClient({{ $item->id_cliente }},0)" class="ml-3 text-danger" data-toggle="popover"  data-content="Desactivar usuario" data-trigger="hover"><i class="fas fa-trash-alt"></i></a>
-                          @else
-                          <a onclick="stateClient({{ $item->id_cliente }},1)" class="ml-3 text-success" data-toggle="popover"  data-content="Activar usuario" data-trigger="hover"><i class="fas fa-user-check"></i></a>
-                          @endif   
-                      </td> --}}
+                                    </b>
+                                </td>
+                                <td>
+                                    <a href="{{ route('reportCredit', ['id' => $item->id_credito]) }}"
+                                        class=" text-info"><i class="fas fa-eye" data-toggle="popover"
+                                            data-content="Informe de Crédito" data-trigger="hover"></i></a>
+                                </td>
+
                             </tr>
                         @endforeach
 

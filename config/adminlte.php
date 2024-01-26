@@ -440,6 +440,7 @@ return [
                 ],
             ],
         ],
+        
         'Chartjs' => [
             'active' => false,
             'files' => [
