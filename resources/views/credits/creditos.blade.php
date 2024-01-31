@@ -30,8 +30,8 @@
                     <thead class="thead-light">
                         <tr>
                             <th>ID Crédito</th>
-                            {{-- <th>Cliente</th>
-                            <th>Casa</th> --}}
+                            <th>Cliente</th>
+
                             <th>Tiempo</th>
                             <th>Monto Total</th>
                             <th>Capital Restante</th>
@@ -49,9 +49,9 @@
                         @foreach ($creditos as $item)
                             <tr>
 
-                                <td>{{ $item->id_credito }}</td>
-                                {{-- <td>{{ $item->id_cliente }}</td>
-                                <td>{{ $item->id_casa }}</td> --}}
+                                <td>{{ $item->no_credito }}</td>
+                                <td>{{ $item->nombre }}</td>
+
                                 <td>{{ $item->tiempo_total }} años</td>
                                 <td>${{ $item->monto_total }}</td>
                                 <td>${{ $item->saldo_restante }}</td>

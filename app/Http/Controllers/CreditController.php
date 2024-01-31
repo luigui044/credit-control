@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\VwCredito;
 use App\Models\TCliente;
 use App\Models\VwCasa;
 use App\Models\TCasa;
@@ -18,7 +19,7 @@ class CreditController extends Controller
     ///////////////////////////////CREDITOS////////////////////////
 
     function getCredits(){
-        $creditos = TCredito::all();
+        $creditos = VwCredito::all();
         $totalCreditos =  $creditos->count();
         return view('credits.creditos',compact('creditos','totalCreditos'));
     }
