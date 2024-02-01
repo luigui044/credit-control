@@ -24,8 +24,9 @@ class ReportController extends Controller
         $detaCredito = VwDetaInformeCredito::where('id',$credito->id)->get();
 
         $pdf = PDF::loadView('credits.reports.credit-report', compact('credito','detaCredito'));;
-        return $pdf->download('Reporte_credito_'.$id.'.pdf');
-      
+        $fecha = date("d-m-Y");
+        $pdf = PDF::loadView('credits.reports.credit-report', compact('credito','detaCredito'));;
+        return $pdf->download('BALANCE DE CRÉDITO '.$credito->no_credito.' '.$credito->nombre.' '.$fecha.'.pdf');
     }
 
     public function generatePDF2($id)

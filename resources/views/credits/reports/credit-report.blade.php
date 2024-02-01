@@ -19,7 +19,7 @@
     <div id="pdf-report">
         <div class="row justify-content-center text-center mt-2">
             <div class="col-md-8">
-                <img src="{{ public_path('assets/img/logoescala.png') }}" alt="" width="100px">
+                <img src="https://escala.innovasv.net/assets/img/logoescala.png" alt="" width="100px">
                 <h1><b>Balance de Crédito No.{{ $credito->no_credito }}</b></h1>
                 <table id="table-cabecera" class="table table-sm table-bordered table-striped mt-1 ">
                     <thead class="thead-dark">
@@ -49,7 +49,7 @@
                                 ${{ number_format($credito->prima, 2, '.', ',') }} USD
                             </td>
                             <td>
-                                000000000
+                                {{ $credito->id_prima }}
                             </td>
 
 
@@ -109,10 +109,11 @@
 
 
                             <td>
-                                {{ \Carbon\Carbon::parse($credito->fecha_fin)->toDateString() }}
+                                {{ \Carbon\Carbon::parse($credito->fecha_inicio)->format('d/m/Y') }}
+
                             </td>
                             <td>
-                                {{ \Carbon\Carbon::parse($credito->fecha_inicio)->toDateString() }}
+                                {{ \Carbon\Carbon::parse($credito->fecha_fin)->format('d/m/Y') }}
                             </td>
                             <td>
                                 ${{ number_format($credito->saldo_restante, 2, '.', ',') }} USD
@@ -144,7 +145,7 @@
                                     {{ $item->no_recibo }}
                                 </td>
                                 <td>
-                                    {{ \Carbon\Carbon::parse($item->fecha)->toDateString() }}
+                                    {{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}
                                 </td>
 
                                 <td>
@@ -154,7 +155,7 @@
                                     ${{ number_format($item->monto_mora, 2, '.', ',') }} USD
                                 </td>
                                 <td>
-                                    {{ \Carbon\Carbon::parse($item->fecha_cuota)->toDateString() }}
+                                    {{ \Carbon\Carbon::parse($item->fecha_cuota)->format('d/m/Y') }}
                                 </td>
                             </tr>
                         @endforeach

@@ -53,13 +53,13 @@
                                 <td>{{ $item->nombre }}</td>
 
                                 <td>{{ $item->tiempo_total }} años</td>
-                                <td>${{ $item->monto_total }}</td>
-                                <td>${{ $item->saldo_restante }}</td>
-                                <td>{{ $item->fecha_inicio }}</td>
-                                <td>{{ $item->fecha_fin }}</td>
+                                <td> ${{ number_format($item->precio_casa, 2, '.', ',') }} </td>
+                                <td>${{ number_format($item->saldo_restante, 2, '.', ',') }} </td>
+                                <td> {{ \Carbon\Carbon::parse($item->fecha_inicio)->format('d/m/Y') }}</td>
+                                <td> {{ \Carbon\Carbon::parse($item->fecha_fin)->format('d/m/Y') }}</td>
                                 <td>{{ $item->tasa_interes_anual }} %</td>
-                                <td>${{ $item->prima }}</td>
-                                <td>${{ $item->cuota_mensual }}</td>
+                                <td> ${{ number_format($item->prima, 2, '.', ',') }} </td>
+                                <td>${{ number_format($item->cuota_mensual, 2, '.', ',') }} </td>
                                 <td><b>
                                         @if ($item->seguro_deuda == 1)
                                             <span class="badge badge-success"> SI</span>

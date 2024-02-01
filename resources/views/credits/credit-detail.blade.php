@@ -31,19 +31,19 @@
                             </td>
 
                             <td>
-                                ${{ $credito->precio_casa }}
+                                ${{ number_format($credito->precio_casa, 2, '.', ',') }} USD
                             </td>
                             <td>
-                                ${{ $credito->prima }}
+                                ${{ number_format($credito->prima, 2, '.', ',') }} USD
                             </td>
                             <td>
-                                000000000
+                                {{ $credito->id_prima }}
                             </td>
                             <td>
-                                ${{ $credito->saldo_restante }}
+                                ${{ number_format($credito->saldo_restante, 2, '.', ',') }} USD
                             </td>
                             <td>
-                                {{ $credito->fecha_inicio }}
+                                {{ \Carbon\Carbon::parse($credito->fecha_inicio)->format('d/m/Y') }}
                             </td>
                         </tr>
                     </tbody>
@@ -81,7 +81,7 @@
                                 {{ $credito->municipio }}
                             </td>
                             <td>
-                                {{ $credito->fecha_fin }}
+                                {{ \Carbon\Carbon::parse($credito->fecha_fin)->format('d/m/Y') }}
                             </td>
 
 
@@ -112,17 +112,17 @@
                                     {{ $item->no_recibo }}
                                 </td>
                                 <td>
-                                    {{ $item->fecha }}
+                                    {{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}
                                 </td>
 
                                 <td>
-                                    {{ $item->monto }}
+                                    ${{ number_format($item->monto, 2, '.', ',') }} USD
                                 </td>
                                 <td>
-                                    {{ $item->monto_mora }}
+                                    ${{ number_format($item->monto_mora, 2, '.', ',') }} USD
                                 </td>
                                 <td>
-                                    {{ $item->fecha_cuota }}
+                                    {{ \Carbon\Carbon::parse($item->fecha_cuota)->format('d/m/Y') }}
                                 </td>
                             </tr>
                         @endforeach
