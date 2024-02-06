@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\VwAcumuladoCredito;
+use JavaScript;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $acumulado = VwAcumuladoCredito::first();
+        JavaScript::put([
+            'acumulado' => $acumulado,
+           
+        ]);
+        return view('home',compact('acumulado'));
+        
     }
 }

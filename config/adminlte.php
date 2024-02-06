@@ -451,6 +451,26 @@ return [
                 ],
             ],
         ],
+        'Amcharts' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'assets/js/amcharts/core.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'assets/js/amcharts/charts.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'assets/js/amcharts/maps.js',
+                ],
+            ],
+        ],
         'Sweetalert2' => [
             'active' => true,
             'files' => [
