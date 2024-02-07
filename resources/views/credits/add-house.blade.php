@@ -36,6 +36,11 @@
                     @if ($errors->any())
                         <div class="alert alert-danger alerta">
                             Ingrese todos los campos correctamente
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
 
@@ -45,19 +50,91 @@
                         </div>
                     @endif
 
-                    <form id="form1" action="{{ route('saveHouse') }}" method="POST">
+                    <form id="form1" action="{{ route('saveHouse') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
-
-                            <div class="col-md-4">
+                        <div class="row mb-2">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label for="desc">Descripcion de casa</label>
-                                    <textarea class="form-control campo-requerido" id="desc" name="desc" rows="3" required></textarea>
-                                    @error('desc')
-                                        <span class="alert text-danger alerta">Ingrese la descripción de la casa</span>
+                                    <label for="block">Block</label>
+                                    <input type="text" class="form-control campo-requerido" id="block" name="block"
+                                        placeholder="Block">
+                                    @error('block')
+                                        <span class="alert text-danger alerta">Ingrese el block de la casa</span>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="casa">Número de casa</label>
+                                    <input type="text" class="form-control campo-requerido" id="casa" name="casa"
+                                        placeholder="Número de casa">
+                                    @error('casa')
+                                        <span class="alert text-danger alerta">Ingrese el número de la casa</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="pasaje">Pasaje</label>
+                                    <input type="text" class="form-control campo-requerido" id="pasaje" name="pasaje"
+                                        placeholder="Pasaje">
+                                    @error('pasaje')
+                                        <span class="alert text-danger alerta">Ingrese el Pasaje de la casa</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="price">Precio($)</label>
+                                    <input type="text" class="form-control campo-requerido" id="price" name="price"
+                                        placeholder="Precio de casa" required>
+                                    @error('price')
+                                        <span class="alert text-danger alerta">Ingrese el precio de la casa</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="monto">Monto invertido($)</label>
+                                    <input type="text" class="form-control campo-requerido" id="monto" name="monto"
+                                        placeholder="Monto invertido" required>
+                                    @error('monto')
+                                        <span class="alert text-danger alerta">Ingrese el monto invertido de la casa</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="depto">Departamento</label>
+
+                                    <select class="form-control campo-requerido" id="depto" name="depto" required>
+                                        <option>Seleccione un departamento</option>
+                                        @foreach ($deptos as $item)
+                                            <option value="{{ $item->id }}">{{ $item->departamento }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('depto')
+                                        <span class="alert text-danger alerta">El campo departamento es requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group" id="div-munis">
+                                    <label for="muni">Municipio</label>
+
+                                    <select class="form-control campo-requerido" id="muni" name="muni" disabled
+                                        required>
+                                        <option>Seleccione un municipio</option>
+
+                                    </select>
+                                    @error('muni')
+                                        <span class="alert text-danger alerta">El campo municipio es requerido</span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="address">Dirección</label>
@@ -68,37 +145,48 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="price">Precio($)</label>
-                                    <input type="text" class="form-control campo-requerido" id="price" name="price"
-                                        placeholder="Precio de casa" required>
-                                    @error('price')
-                                        <span class="alert text-danger alerta">Ingrese el precio de la casa</span>
-                                    @enderror
-                                </div>
+                                <label for="antes">Fotos antes de remodelación</label>
+                                <input type="file" class="" id="antes" name="antes[]" accept="image/*"
+                                    multiple>
+                                @error('antes')
+                                    <span class="alert text-danger alerta">Ingrese error en el antes</span>
+                                @enderror
+
+                                <div id="antes1" style="margin-top: 10px;"></div>
                             </div>
 
+                            <div class="col-md-4">
+                                <label for="antes">Fotos después de remodelación</label>
+                                <input type="file" class="" id="despues" name="despues[]" accept="image/*"
+                                    multiple>
+                                @error('despues')
+                                    <span class="alert text-danger alerta">Ingrese error en el despues</span>
+                                @enderror
 
 
-
+                                <div id="despues2" style="margin-top: 10px;"></div>
+                            </div>
                         </div>
 
 
-
-
-                        <button type="button" id="btnSave" class="btn btn-primary btn-block">Registrar</button>
-                    </form>
                 </div>
-                <!-- /.card-body -->
-                {{-- <div class="card-footer">
+
+
+
+
+                <button type="button" id="btnSave" class="btn btn-primary btn-block">Registrar</button>
+                </form>
+            </div>
+            <!-- /.card-body -->
+            {{-- <div class="card-footer">
               The footer of the card
             </div> --}}
-                <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-
-
+            <!-- /.card-footer -->
         </div>
+        <!-- /.card -->
+
+
+    </div>
     </div>
 
 @stop
@@ -116,4 +204,73 @@
     @include('sweetalert::alert')
 
     <script src="{{ asset('assets/js/credits/addHouse.js') }}"></script>
+    <script>
+        document.getElementById('antes').addEventListener('change', function(event) {
+            var fileList = event.target.files;
+            var fileNamesContainer = document.getElementById('fileNames');
+            fileNamesContainer.innerHTML = ''; // Limpiar contenedor
+
+            if (fileList.length) {
+                var fileListItems = document.createElement('ul');
+
+                for (var i = 0; i < fileList.length; i++) {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = fileList[i].name;
+                    fileListItems.appendChild(listItem);
+                }
+
+                fileNamesContainer.appendChild(fileListItems);
+            } else {
+                fileNamesContainer.textContent = 'No se han seleccionado archivos.';
+            }
+        });
+
+
+
+        document.getElementById('antes').addEventListener('change', function(event) {
+            var fileList = event.target.files;
+            var thumbnailsContainer = document.getElementById('antes1');
+            thumbnailsContainer.innerHTML = ''; // Limpiar contenedor
+
+            if (fileList.length) {
+                for (var i = 0; i < fileList.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '100px'; // Ajustar el tamaño máximo de la miniatura
+                        img.style.maxHeight = '100px'; // Ajustar el tamaño máximo de la miniatura
+                        thumbnailsContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(fileList[i]);
+                }
+            } else {
+                thumbnailsContainer.textContent = 'No se han seleccionado archivos de imagen.';
+            }
+        });
+
+        document.getElementById('despues').addEventListener('change', function(event) {
+            var fileList = event.target.files;
+            var thumbnailsContainer = document.getElementById('despues2');
+            thumbnailsContainer.innerHTML = ''; // Limpiar contenedor
+
+            if (fileList.length) {
+                for (var i = 0; i < fileList.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '100px'; // Ajustar el tamaño máximo de la miniatura
+                        img.style.maxHeight = '100px'; // Ajustar el tamaño máximo de la miniatura
+                        img.style.marginRight = '10px'; // Aplicar margen derecho
+                        img.style.marginBottom = '10px';
+                        thumbnailsContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(fileList[i]);
+                }
+            } else {
+                thumbnailsContainer.textContent = 'No se han seleccionado archivos de imagen.';
+            }
+        });
+    </script>
 @stop

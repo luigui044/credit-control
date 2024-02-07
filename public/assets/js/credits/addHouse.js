@@ -1,29 +1,44 @@
 
 
-$('#btnSave').click(function (e) { 
+$('#btnSave').click(function (e) {
     Swal.fire({
-            title: "¿Está seguro de continuar?",
-            text: "Presione 'Continuar' para registrar la nueva casa",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Continuar"
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $('#form1').submit();
-            }
+        title: "¿Está seguro de continuar?",
+        text: "Presione 'Continuar' para registrar la nueva casa",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Continuar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $('#form1').submit();
+        }
     });
 });
+$('#depto').change(function () {
+    let depto = $('#depto option:selected').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.post("/filter-muni", { depto: depto })
+        .done(function (e) {
+            $("#div-munis").html(e);
+        })
+        .fail(function (e) {
+            alert(e);
+        })
+});
 
-$('#form1').submit(function(e) {
+$('#form1').submit(function (e) {
     e.preventDefault(); // Evita el envío del formulario por defecto
 
     if (formIsValid()) {
         this.submit();
     }
-});                       
+});
 
 
 
@@ -46,7 +61,7 @@ function formIsValid() {
 function validarCamposRequeridos() {
     var formIsValid = true;
 
-    $('.campo-requerido').each(function() {
+    $('.campo-requerido').each(function () {
         if ($(this).val() === '') {
             formIsValid = false;
             return false; // Sale del bucle si encuentra un campo vacío
