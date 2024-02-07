@@ -71,3 +71,48 @@ function validarCamposRequeridos() {
     return formIsValid;
 }
 
+document.getElementById('antes').addEventListener('change', function (event) {
+    var fileList = event.target.files;
+    var thumbnailsContainer = document.getElementById('antes1');
+    thumbnailsContainer.innerHTML = ''; // Limpiar contenedor
+
+    if (fileList.length) {
+        for (var i = 0; i < fileList.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100px'; // Ajustar el tamaño máximo de la miniatura
+                img.style.maxHeight = '100px'; // Ajustar el tamaño máximo de la miniatura
+                thumbnailsContainer.appendChild(img);
+            };
+            reader.readAsDataURL(fileList[i]);
+        }
+    } else {
+        thumbnailsContainer.textContent = 'No se han seleccionado archivos de imagen.';
+    }
+});
+
+document.getElementById('despues').addEventListener('change', function (event) {
+    var fileList = event.target.files;
+    var thumbnailsContainer = document.getElementById('despues2');
+    thumbnailsContainer.innerHTML = ''; // Limpiar contenedor
+
+    if (fileList.length) {
+        for (var i = 0; i < fileList.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100px'; // Ajustar el tamaño máximo de la miniatura
+                img.style.maxHeight = '100px'; // Ajustar el tamaño máximo de la miniatura
+                img.style.marginRight = '10px'; // Aplicar margen derecho
+                img.style.marginBottom = '10px';
+                thumbnailsContainer.appendChild(img);
+            };
+            reader.readAsDataURL(fileList[i]);
+        }
+    } else {
+        thumbnailsContainer.textContent = 'No se han seleccionado archivos de imagen.';
+    }
+});
