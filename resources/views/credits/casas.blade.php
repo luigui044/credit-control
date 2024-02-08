@@ -42,6 +42,7 @@
                             <th>Precio</th>
                             <th>Descripción</th>
                             <th>Estado</th>
+                            <th>Expediente</th>
 
 
                         </tr>
@@ -62,7 +63,11 @@
                                         <span class="badge badge-info"> {{ $item->estado }}</span>
                                     @endif
                                 </td>
-
+                                <td>
+                                    <a href="{{ route('detailHouse', ['id' => $item->id_casa]) }}"
+                                        class="btn btn-sm btn-success"><i class="far fa-folder-open"></i>
+                                        Abrir</a>
+                                </td>
                             </tr>
                         @endforeach
 

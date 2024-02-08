@@ -84,6 +84,8 @@ document.getElementById('antes').addEventListener('change', function (event) {
                 img.src = e.target.result;
                 img.style.maxWidth = '100px'; // Ajustar el tamaño máximo de la miniatura
                 img.style.maxHeight = '100px'; // Ajustar el tamaño máximo de la miniatura
+                img.style.marginRight = '10px'; // Aplicar margen derecho
+                img.style.marginBottom = '10px';
                 thumbnailsContainer.appendChild(img);
             };
             reader.readAsDataURL(fileList[i]);
