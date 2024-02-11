@@ -45,7 +45,7 @@
                             ${{ number_format($casa->precio, 2, '.', ',') }}
                         </td>
                         <td>
-                            ${{ number_format($casa->monto, 2, '.', ',') }}
+                            ${{ number_format($casa->monto_invertido, 2, '.', ',') }}
                         </td>
                         </td>
                     </tr>
@@ -76,40 +76,113 @@
             </table>
         </div>
         <div class="col-md-6">
-            <h2>ANTES</h2>
-            <div class="row">
-                @foreach ($imagenesCasa as $item)
-                    @if ($item->tipo == 1)
-                        <div class="col-md-3"> <img src="{{ asset('images/' . $item->img_url) }}"
-                                alt="imagen_antes_{{ $item->img_url }}" width="200px"></div>
-                    @endif
-                @endforeach
+
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">ANTES</h3>
+                    <div class="card-tools">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        @foreach ($imagenesCasa as $item)
+                            @if ($item->tipo == false)
+                                <div class="col-md-3 mx-1"> <img onclick="ampliar('{{ $item->img_url }}')"
+                                        id="{{ $item->img_url }}" class="magnify"
+                                        src="{{ asset('images/' . $item->img_url) }}"
+                                        alt="imagen_antes_{{ $item->img_url }}" width="200px">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
             </div>
+            <!-- /.card -->
+
+
+
+
 
         </div>
         <div class="col-md-6">
-            <h2>DESPUÉS</h2>
-            <div class="row">
-                @foreach ($imagenesCasa as $item)
-                    @if ($item->tipo == 2)
-                        <div class="col-md-3"> <img src="{{ asset('images/' . $item->img_url) }}"
-                                alt="imagen_antes_{{ $item->img_url }}" width="200px"></div>
-                    @endif
-                @endforeach
+
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">DESPUÉS</h3>
+                    <div class="card-tools">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        @foreach ($imagenesCasa as $item)
+                            @if ($item->tipo == true)
+                                <div class="col-md-3 mx-1"> <img id="{{ $item->img_url }}"
+                                        src="{{ asset('images/' . $item->img_url) }}" class="magnify"
+                                        onclick="ampliar('{{ $item->img_url }}')" alt="imagen_antes_{{ $item->img_url }}"
+                                        width="200px"> </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
             </div>
+            <!-- /.card -->
+
+
+
 
         </div>
 
     </div>
+
+
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img src="" class="modal-content" id="imagen-ampliada">
+    </div>
+
+    <script src="script.js"></script>
 @stop
 @section('css')
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <style>
+        .close {
+            color: #fff;
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .imagen-clickable {
+            cursor: pointer;
+        }
+    </style>
 
 @stop
 
 @section('js')
-
+    <script src="{{ asset('assets/js/jquery.magnifier.js') }}"></script>
 @stop

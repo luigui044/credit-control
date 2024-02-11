@@ -60,7 +60,7 @@ class HouseController extends Controller
             $newHouseImages = new TImagenesCasa();
             $newHouseImages->id_casa = $newHouse->id_casa;
             $newHouseImages->img_url = $imageName;
-            $newHouseImages->tipo =1;
+            $newHouseImages->tipo =false;
             $newHouseImages->save();
         }
 
@@ -70,7 +70,7 @@ class HouseController extends Controller
             $newHouseImages = new TImagenesCasa();
             $newHouseImages->id_casa = $newHouse->id_casa;
             $newHouseImages->img_url = $imageName;
-            $newHouseImages->tipo =2;
+            $newHouseImages->tipo =true;
             $newHouseImages->save();
         }
 
