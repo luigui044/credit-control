@@ -96,11 +96,13 @@
                 <table class="table table-bordered table-striped mt-1">
                     <thead>
                         <tr>
+
                             <th>ID Recibo</th>
                             <th>Fecha Recibo</th>
                             <th>Monto</th>
                             <th>Mora</th>
                             <th>Fecha de Cuota</th>
+                            <th>Generar PDF</th>
 
                         </tr>
 
@@ -123,6 +125,10 @@
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($item->fecha_cuota)->format('d/m/Y') }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('generateRecipe', ['id' => $item->id_transaccion]) }}"
+                                        class="btn btn-secondary"> <i class="fas fa-file-pdf"></i></a>
                                 </td>
                             </tr>
                         @endforeach

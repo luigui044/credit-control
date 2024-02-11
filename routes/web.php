@@ -56,4 +56,5 @@ Route::post('/save-payment', [PaymentController::class, 'savePayment'])->name('s
 ///reportes 
 Route::get('/informe-credito/{id}',[ReportController::class,'reportCredit'])->name('reportCredit');
 Route::get('/generate-pdf/{id}', [ReportController::class, 'generatePDF'])->name('generatePDF');
-Route::get('/test/{id}', [ReportController::class, 'generatePDF2'])->name('generatePDF2');
+Route::get('/generate-recipe/{id}',[ReportController::class,'generateRecipe'])->name('generateRecipe');
+// Route::get('/test/{id}', [ReportController::class, 'generatePDF2'])->name('generatePDF2');
