@@ -45,7 +45,7 @@ class ReportController extends Controller
         $recibo = VwDetaInformeCredito::where('id_transaccion',$id)->first();
         $credito = VwCredito::where('id_credito',$recibo->id)->first();
         $fecha = date("d-m-Y");
-        $saldoPendiente = $recibo->monto + $recibo->monto_mora-$credito->cuota_mensual;
+        $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
         $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
         return  $pdf->download('Recibo '.$recibo->no_recibo.' '.$recibo->nombre.' '.$fecha.'.pdf');
     

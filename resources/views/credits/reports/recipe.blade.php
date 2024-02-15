@@ -113,10 +113,10 @@
     </div>
     <footer>
         <h3 id="saldo-pendiente"><b>Saldo Pendiente:</b>
-            @if ($saldoPendiente < 0)
-                ${{ number_format($saldoPendiente, 2, '.', ',') }}
-            @else
+            @if ($saldoPendiente < 1)
                 $0.00
+            @else
+                $ {{ number_format($saldoPendiente, 2, '.', ',') }}
             @endif
         </h3>
         <br>
