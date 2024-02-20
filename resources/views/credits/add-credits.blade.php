@@ -115,6 +115,7 @@
 
                                         <option value="10">10%</option>
                                         <option value="20">20%</option>
+                                        <option value="30">30%</option>
                                     </select>
                                     @error('prima1')
                                         <span class="alert text-danger alerta">El porcentaje de prima es
