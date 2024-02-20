@@ -32,7 +32,12 @@ class CreditController extends Controller
     
     function saveCredit(Request $req)
     {
+        $maxNoCredit = TCredito::max('no_contrato');
+        $casa = TCasa::find($req->casa);
+    
         $newCredit = new TCredito();
+        $newCredit->no_contrato = $maxNoCredit +1;
+        $newCredit->no_credito = ($maxNoCredit+1).'-'.$casa->numero.'-'.$casa->block.'-'.$casa->pasaje;
         $newCredit->id_casa = $req->casa;
         $newCredit->id_cliente = $req->cliente;
         $newCredit->precio_casa = $req->price;
@@ -42,6 +47,9 @@ class CreditController extends Controller
         $newCredit->fecha_inicio = $req->fecIni;
         $newCredit->fecha_fin = $req->fecFin;
         $newCredit->tasa_interes_anual = $req->interes;
+        $newCredit->cuota_mensual_real = $req->cuota;
+
+
         if ($req->interes =='1') {
             $newCredit->costo_seguro= 15;
         }
@@ -51,15 +59,17 @@ class CreditController extends Controller
 
         }
         $newCredit->seguro_deuda = $req->seguro;
-        $newCredit->prima = $req->prima;
+        $newCredit->prima = str_replace(",", "", $req->primaMount) ;
         $newCredit->save();
 
-        $casa = TCasa::find($req->casa);
+       
         $casa->estado= 3;
         $casa->save();
-        $cliente = TCliente::find($req->cliente);
-        $cliente->estado = 4;
-        $cliente->save();
+        
+        ///se anula ya que si el cliente es 4 no puedo regisrarle mas creditos
+        // $cliente = TCliente::find($req->cliente);
+        // $cliente->estado = 4;
+        // $cliente->save();
 
         return back();
     }
