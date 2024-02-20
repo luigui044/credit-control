@@ -52,28 +52,34 @@ class HouseController extends Controller
         $newHouse->id_muni = $req->muni;
         $newHouse->estado = 1;
         $newHouse->save();
-
+        if($req->file('antes'))
+        {
+            foreach ($req->file('antes') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+                $newHouseImages = new TImagenesCasa();
+                $newHouseImages->id_casa = $newHouse->id_casa;
+                $newHouseImages->img_url = $imageName;
+                $newHouseImages->tipo =false;
+                $newHouseImages->save();
+            }
+    
+        }
       
-        foreach ($req->file('antes') as $image) {
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $newHouseImages = new TImagenesCasa();
-            $newHouseImages->id_casa = $newHouse->id_casa;
-            $newHouseImages->img_url = $imageName;
-            $newHouseImages->tipo =false;
-            $newHouseImages->save();
+        if($req->file('despues'))
+        {
+            foreach ($req->file('despues') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+                $newHouseImages = new TImagenesCasa();
+                $newHouseImages->id_casa = $newHouse->id_casa;
+                $newHouseImages->img_url = $imageName;
+                $newHouseImages->tipo =true;
+                $newHouseImages->save();
+            }
+    
         }
-
-        foreach ($req->file('despues') as $image) {
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $newHouseImages = new TImagenesCasa();
-            $newHouseImages->id_casa = $newHouse->id_casa;
-            $newHouseImages->img_url = $imageName;
-            $newHouseImages->tipo =true;
-            $newHouseImages->save();
-        }
-
+       
 
 
         alert()->success('SuccessAlert','La casa ha sido Registrada correctamente');
