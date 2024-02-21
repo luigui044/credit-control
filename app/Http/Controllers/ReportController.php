@@ -8,6 +8,10 @@ use App\Models\VwDetaInformeCredito;
 use App\Models\VwCredito;
 use Drnxloc\LaravelHtmlDom\HtmlDomParser;
 use PDF;
+use Alert;
+use ZipArchive;
+
+use Carbon\Carbon;
 class ReportController extends Controller
 {
     function reportCredit($id){
@@ -42,12 +46,55 @@ class ReportController extends Controller
 
     public function generateRecipe($id)
     {
-        $recibo = VwDetaInformeCredito::where('id_transaccion',$id)->first();
-        $credito = VwCredito::where('id_credito',$recibo->id)->first();
-        $fecha = date("d-m-Y");
-        $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
-        $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
-        return  $pdf->download('Recibo '.$recibo->no_recibo.' '.$recibo->nombre.' '.$fecha.'.pdf');
+        if($id !=0){
+            $recibo = VwDetaInformeCredito::where('id_transaccion',$id)->first();
+            $credito = VwCredito::where('id_credito',$recibo->id)->first();
+            $fecha = date("d-m-Y");
+            $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
+            $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
+            return  $pdf->download('Recibo '.$recibo->no_recibo.' '.$recibo->nombre.' '.$fecha.'.pdf');
+        }
+       else{
+        set_time_limit(0);
+
+
+            // Obtener la fecha actual
+            $hoy = Carbon::now();
+            // Calcular la última fecha del mes pasado
+            $ultimaFechaMesPasado = $hoy->subMonth()->endOfMonth();
+            // Formatear la fecha según tus necesidades
+            $ultimaFechaMesPasadoFormateada = $ultimaFechaMesPasado->format('Y-m-d');
+            $pdfs = [];
+
+            $zipFileName = 'Recibos.zip';
+            $zip = new ZipArchive;
+
+
+            $recibos = VwDetaInformeCredito::where('fecha_cuota',$ultimaFechaMesPasadoFormateada)->get();
+      
+                foreach ($recibos as $recibo ) {
+                    $credito = VwCredito::where('id_credito',$recibo->id)->first();
+                    $fecha = date("d-m-Y");
+                    $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
+                    $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
+                    $pdfs[] =[
+                        'nombre' => 'Recibo_'.$recibo->no_recibo.'_'.$recibo->nombre.'_'.$fecha.'.pdf',
+                        'contenido' => $pdf->output()
+                    ] ;
+                  
+                }
+                if ($zip->open(public_path($zipFileName), ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+                    
+                    foreach ($pdfs as $pdf) {
+                        $zip->addFromString($pdf['nombre'], $pdf['contenido']);
+                    }
+                    $zip->close();
+                }
+
+
+            return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+          
+       }
     
     }
 }

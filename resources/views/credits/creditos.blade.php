@@ -9,11 +9,17 @@
 @stop
 @section('content')
     <div class="row">
-        <div class="col-md-3">
-            <a href="{{ route('addCredits') }}" class="btn btn-success" data-toggle="popover"
+        <div class="col-md-5">
+            <a href="{{ route('addCredits') }}" class="btn btn-lg btn-success" data-toggle="popover"
                 data-content="Agrega nuevos créditos al sistema" data-trigger="hover"><i class="fas fa-coins"></i> Agregar
                 nuevo crédito</a>
+            <a href="{{ route('generateRecipe', ['id' => 0]) }}" id="descargar-zip" class="btn btn-lg btn-secondary"
+                data-toggle="popover" data-content="Agrega nuevos créditos al sistema" data-trigger="hover"><i
+                    class="fas fa-file-pdf"></i>
+                Generar
+                Recibos de útimo pago</a>
         </div>
+
         <div class="col-md-3">
             <div class="info-box bg-info">
                 <span class="info-box-icon"><i class="fas fa-file-invoice-dollar"></i></span>
@@ -69,7 +75,7 @@
                                     </b>
                                 </td>
                                 <td>
-                                    <a href="{{ route('reportCredit', ['id' => $item->id_credito]) }}"
+                                    <a target="blank" href="{{ route('reportCredit', ['id' => $item->id_credito]) }}"
                                         class=" text-info"><i class="fas fa-eye" data-toggle="popover"
                                             data-content="Informe de Crédito" data-trigger="hover"></i></a>
                                 </td>
@@ -89,6 +95,7 @@
     </div>
 
 
+
 @stop
 
 
@@ -101,5 +108,10 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
+
     <script src="{{ asset('assets/js/credits/credits.js') }}"></script>
+
+
+
 @stop

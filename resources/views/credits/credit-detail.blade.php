@@ -127,7 +127,7 @@
                                     {{ \Carbon\Carbon::parse($item->fecha_cuota)->format('d/m/Y') }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('generateRecipe', ['id' => $item->id_transaccion]) }}"
+                                    <a target="blank" href="{{ route('generateRecipe', ['id' => $item->id_transaccion]) }}"
                                         class="btn btn-secondary"> <i class="fas fa-file-pdf"></i></a>
                                 </td>
                             </tr>
