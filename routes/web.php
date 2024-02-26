@@ -57,4 +57,17 @@ Route::post('/save-payment', [PaymentController::class, 'savePayment'])->name('s
 Route::get('/informe-credito/{id}',[ReportController::class,'reportCredit'])->name('reportCredit');
 Route::get('/generate-pdf/{id}', [ReportController::class, 'generatePDF'])->name('generatePDF');
 Route::get('/generate-recipe/{id}',[ReportController::class,'generateRecipe'])->name('generateRecipe');
+
+///cobros unicos
+Route::get('/cobros-unicos/{ban?}',[PaymentController::class, 'getBills'])->name('getBills');
+Route::get('/generar-cobro',[PaymentController::class, 'createBill'])->name('createBill');
+Route::post('/registrar-cobro',[PaymentController::class, 'saveBill'])->name('saveBill');
+
+Route::get('/pago-unico',[PaymentController::class, 'processBill'])->name('processBill');
+
+Route::post('/get-cobros/{id}', [PaymentController::class, 'getBillsByIdCredits'])->name('getBillsByIdCredits');
+Route::post('/save-unique-payment', [PaymentController::class, 'saveUniquePayment'])->name('saveUniquePayment');
+
+
+
 // Route::get('/test/{id}', [ReportController::class, 'generatePDF2'])->name('generatePDF2');

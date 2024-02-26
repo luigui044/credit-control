@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\VwInformeCredito;
 use App\Models\VwDetaInformeCredito;
 use App\Models\VwCredito;
+use App\Models\VwCobrosUnico;
 use Drnxloc\LaravelHtmlDom\HtmlDomParser;
 use PDF;
 use Alert;
@@ -27,7 +28,7 @@ class ReportController extends Controller
         
         $credito = VwInformeCredito::find($id);
         $detaCredito = VwDetaInformeCredito::where('id',$credito->id)->get();
-
+       
         $fecha = date("d-m-Y");
         $pdf = PDF::loadView('credits.reports.credit-report', compact('credito','detaCredito'));
         return $pdf->download('BALANCE DE CRÉDITO '.$credito->no_credito.' '.$credito->nombre.' '.$fecha.'.pdf');
@@ -47,11 +48,20 @@ class ReportController extends Controller
     public function generateRecipe($id)
     {
         if($id !=0){
+        
             $recibo = VwDetaInformeCredito::where('id_transaccion',$id)->first();
             $credito = VwCredito::where('id_credito',$recibo->id)->first();
+            $cobroUnico =VwCobrosUnico::where('id_credito',$recibo->id)->where(function ($query) {
+                $query->where('estado', 1)
+                      ->orWhere('estado', 3)
+                      ->orWhere(function ($query) {
+                          $query->where('estado', 2)
+                                ->where('ban_generado', 0);
+                      });
+            })->get();
             $fecha = date("d-m-Y");
             $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
-            $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
+            $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente','cobroUnico'));
             return  $pdf->download('Recibo '.$recibo->no_recibo.' '.$recibo->nombre.' '.$fecha.'.pdf');
         }
        else{

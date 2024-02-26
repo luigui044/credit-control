@@ -42,7 +42,8 @@
         }
 
         .table th,
-        .table td {
+        .table td,
+        .table tr {
             border: 1px solid #ccc;
             padding: 8px;
         }
@@ -109,17 +110,53 @@
 
 
             </tbody>
+
+
         </table>
+
+        @if (count($cobroUnico) > 0)
+            <table class="table">
+
+                <head>
+                    <tr>
+                        <th class="text-center" colspan="4">Pagos Únicos</th>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                        <th>Mora</th>
+                        <th>Total</th>
+                    </tr>
+                </head>
+                <tbody>
+                    @foreach ($cobroUnico as $item)
+                        <tr>
+                            <td>
+                                {{ $item->desc_pago }} vencimiento:
+                                {{ \Carbon\Carbon::parse($item->fecha_vencimiento)->format('d/m/Y') }}
+                            </td>
+
+                            <td> ${{ number_format($item->restante - $item->mora, 2, '.', ',') }}</td>
+                            <td>${{ number_format($item->mora, 2, '.', ',') }}</td>
+                            <td>${{ number_format($item->restante, 2, '.', ',') }}</td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        @endif
+
     </div>
     <footer>
-        <h3 id="saldo-pendiente"><b>Saldo Pendiente:</b>
+        {{-- <h3 id="saldo-pendiente"><b>Saldo Pendiente:</b>
             @if ($saldoPendiente < 1)
                 $0.00
             @else
                 $ {{ number_format($saldoPendiente, 2, '.', ',') }}
             @endif
         </h3>
-        <br>
+        <br> --}}
         <p id="date-generated">Recibo generado: {{ \Carbon\Carbon::parse($fecha)->format('d/m/Y') }}</p>
     </footer>
 </body>

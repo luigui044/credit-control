@@ -14,16 +14,18 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id_transaccion
  * @property int $id_credito
- * @property int $id_cliente
- * @property int $tipo_transaccion
+ * @property string $tipo_transaccion
  * @property float $monto
  * @property Carbon $fecha
  * @property int|null $mora_aplicada
  * @property float|null $monto_mora
- * @property Carbon|null $fecha_mora
+ * @property Carbon|null $fecha_cuota
+ * @property int $estado
+ * @property string|null $no_recibo
+ * @property float|null $saldo_favor
  * 
- * @property TCliente $t_cliente
  * @property TCredito $t_credito
+ * @property CEstadosCredito $c_estados_credito
  *
  * @package App\Models
  */
@@ -35,33 +37,35 @@ class TTransaccione extends Model
 
 	protected $casts = [
 		'id_credito' => 'int',
-		'id_cliente' => 'int',
-		'tipo_transaccion' => 'int',
 		'monto' => 'float',
 		'fecha' => 'datetime',
 		'mora_aplicada' => 'int',
 		'monto_mora' => 'float',
-		'fecha_mora' => 'datetime'
+		'fecha_cuota' => 'datetime',
+		'estado' => 'int',
+		'saldo_favor' => 'float'
 	];
 
 	protected $fillable = [
 		'id_credito',
-		'id_cliente',
 		'tipo_transaccion',
 		'monto',
 		'fecha',
 		'mora_aplicada',
 		'monto_mora',
-		'fecha_mora'
+		'fecha_cuota',
+		'estado',
+		'no_recibo',
+		'saldo_favor'
 	];
-
-	public function t_cliente()
-	{
-		return $this->belongsTo(TCliente::class, 'id_cliente');
-	}
 
 	public function t_credito()
 	{
 		return $this->belongsTo(TCredito::class, 'id_credito');
+	}
+
+	public function c_estados_credito()
+	{
+		return $this->belongsTo(CEstadosCredito::class, 'estado');
 	}
 }

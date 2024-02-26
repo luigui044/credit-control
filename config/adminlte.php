@@ -315,7 +315,7 @@ return [
             'text'        => 'Inicio',
             'url'         => '/',
             'icon'        => 'fas fa-fw fa-home',
-            // 'label'       => 4,
+            'icon_color' => 'white',
             'label_color' => 'success',
         ],
         ['header' => 'CONTROL DE CRÉDITOS'],
@@ -323,19 +323,26 @@ return [
             'text' => 'Acreedores',
             'url'  => '/clientes',
             'icon' => 'fas fa-fw fa-user',
-            'icon_color' => 'cyan'
-        ],
-        [
-            'text' => 'Créditos',
-            'url'  => '/creditos',
-            'icon' => 'fas fa-money-bill-wave-alt',
-            'icon_color' => 'green'
+            'icon_color' => 'white'
         ],
         [
             'text' => 'Casas',
             'url'  => '/casas',
             'icon' => 'fas fa-city',
-            'icon_color' => 'yellow'
+            'icon_color' => 'white'
+        ],
+        [
+            'text' => 'Créditos',
+            'url'  => '/creditos',
+            'icon' => 'fas fa-money-bill-wave-alt',
+            'icon_color' => 'white'
+        ],
+        
+        [
+            'text' => 'Cobros Únicos',
+            'url'  => '/cobros-unicos',
+            'icon' => 'fas fa-coins',
+            'icon_color' => 'white'
         ],
         [
             'text'    => 'Transacciones',
@@ -347,8 +354,8 @@ return [
                 ],
                 
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Pagos Únicos',
+                    'url'  => '/pago-unico',
                 ],
             ],
         ],

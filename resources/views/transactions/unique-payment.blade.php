@@ -39,7 +39,7 @@
                         </div>
                     @endif
 
-                    <form id="form1" action="{{ route('savePayment') }}" method="POST">
+                    <form id="form1" action="{{ route('saveUniquePayment') }}" method="POST">
                         @csrf
                         <div class="row">
 
@@ -72,7 +72,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group" id="cobros-div">
+                                    <label for="cobro">Cobros</label>
+                                    <select class="form-control campo-requerido" id="cobro" name="cobro" disabled
+                                        required>
+                                        <option>Seleccione cobro a pagar</option>
 
+                                    </select>
+                                    @error('cobro')
+                                        <span class="alert text-danger alerta">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="recibo">ID Recibo</label>
@@ -95,10 +107,10 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group " id="div-cuota">
+                                <div class="form-group ">
                                     <label for="fecha">Fecha de pago</label>
                                     <input type="date" class="form-control campo-requerido" id="fecha" name="fecha"
-                                        placeholder="Monto a pagar" required>
+                                        required>
                                     @error('fecha')
                                         <span class="alert text-danger alerta">El Campo de fecha es requerido</span>
                                     @enderror
@@ -128,5 +140,5 @@
 
 @section('js')
     @include('sweetalert::alert')
-    <script src="{{ asset('assets/js/payments/payment.js') }}"></script>
+    <script src="{{ asset('assets/js/payments/unique-payment.js') }}"></script>
 @stop
