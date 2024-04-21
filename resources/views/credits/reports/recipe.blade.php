@@ -92,53 +92,73 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th class="text-center" colspan="4">Cuota Mensual</th>
+                </tr>
+                <tr class="text-center">
                     <th>Descripción</th>
-                    <th>Monto</th>
+                    <th>Monto Pagado</th>
                     <th>Mora</th>
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
 
-                <tr>
+                <tr class="text-center">
                     <td>Pago de cuota {{ \Carbon\Carbon::parse($recibo->fecha_cuota)->format('d/m/Y') }}</td>
 
                     <td> ${{ number_format($recibo->monto, 2, '.', ',') }}</td>
                     <td>${{ number_format($recibo->monto_mora, 2, '.', ',') }}</td>
-                    <td>${{ number_format($recibo->monto + $recibo->monto_mora, 2, '.', ',') }}</td>
+                    <td>${{ number_format($recibo->monto - $recibo->monto_mora, 2, '.', ',') }}</td>
                 </tr>
 
 
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
 
+                        <h3 id="saldo-pendiente"><b>Saldo pendiente de cuota:</b>
+                            @if ($saldoPendiente < 1)
+                                $0.00
+                            @else
+                                $ {{ number_format($saldoPendiente, 2, '.', ',') }}
+                            @endif
+                        </h3>
+
+                    </td>
+                </tr>
+            </tfoot>
 
         </table>
 
-        @if (count($cobroUnico) > 0)
-            <table class="table">
 
-                <head>
+        @if (count($cobroUnico) > 0)
+            <table class="table text-center">
+
+                <head class="text-center">
                     <tr>
-                        <th class="text-center" colspan="4">Pagos Únicos</th>
+                        <th class="" colspan="5">Pagos Únicos</th>
                     </tr>
                     <tr>
                         <th>Descripción</th>
-                        <th>Monto</th>
+                        <th>Cargo total</th>
+                        <th>Monto abonado</th>
                         <th>Mora</th>
-                        <th>Total</th>
+                        <th>Saldo restante</th>
                     </tr>
                 </head>
-                <tbody>
+                <tbody class="text-center">
                     @foreach ($cobroUnico as $item)
                         <tr>
                             <td>
                                 {{ $item->desc_pago }} vencimiento:
-                                {{ \Carbon\Carbon::parse($item->fecha_vencimiento)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($item->fecha_cuota)->format('d/m/Y') }}
                             </td>
+                            <td> ${{ number_format($item->total_cobro, 2, '.', ',') }}</td>
 
-                            <td> ${{ number_format($item->restante - $item->mora, 2, '.', ',') }}</td>
+                            <td> ${{ number_format($item->monto, 2, '.', ',') }}</td>
                             <td>${{ number_format($item->mora, 2, '.', ',') }}</td>
-                            <td>${{ number_format($item->restante, 2, '.', ',') }}</td>
+                            <th>${{ number_format($item->restante, 2, '.', ',') }}</th>
 
                         </tr>
                     @endforeach
@@ -149,15 +169,8 @@
 
     </div>
     <footer>
-        {{-- <h3 id="saldo-pendiente"><b>Saldo Pendiente:</b>
-            @if ($saldoPendiente < 1)
-                $0.00
-            @else
-                $ {{ number_format($saldoPendiente, 2, '.', ',') }}
-            @endif
-        </h3>
-        <br> --}}
         <p id="date-generated">Recibo generado: {{ \Carbon\Carbon::parse($fecha)->format('d/m/Y') }}</p>
+
     </footer>
 </body>
 

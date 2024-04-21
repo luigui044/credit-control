@@ -7,6 +7,10 @@ use App\Models\VwInformeCredito;
 use App\Models\VwDetaInformeCredito;
 use App\Models\VwCredito;
 use App\Models\VwCobrosUnico;
+use App\Models\TPagosUnico;
+
+use App\Models\VwRecibosPagosUnico;
+
 use Drnxloc\LaravelHtmlDom\HtmlDomParser;
 use PDF;
 use Alert;
@@ -51,17 +55,20 @@ class ReportController extends Controller
         
             $recibo = VwDetaInformeCredito::where('id_transaccion',$id)->first();
             $credito = VwCredito::where('id_credito',$recibo->id)->first();
-            $cobroUnico =VwCobrosUnico::where('id_credito',$recibo->id)->where(function ($query) {
-                $query->where('estado', 1)
-                      ->orWhere('estado', 3)
-                      ->orWhere(function ($query) {
-                          $query->where('estado', 2)
-                                ->where('ban_generado', 0);
-                      });
-            })->get();
+            $cobroUnico =VwRecibosPagosUnico::where('id_credito',$recibo->id)->where('ban_generado',0)->get();
             $fecha = date("d-m-Y");
-            $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
+            $saldoPendiente =$credito->cuota_mensual + $recibo->monto_mora - $recibo->monto ;
             $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente','cobroUnico'));
+            $updateCobroUnico = TPagosUnico::where('id_credito',$recibo->id)->where('ban_generado',0)->get();
+            foreach ($updateCobroUnico as $item) {
+                if($item->restante == 0 )
+                {
+                    $item->ban_generado= 1;
+                    $item->save();
+                }
+            
+            }
+
             return  $pdf->download('Recibo '.$recibo->no_recibo.' '.$recibo->nombre.' '.$fecha.'.pdf');
         }
        else{
@@ -85,7 +92,7 @@ class ReportController extends Controller
                 foreach ($recibos as $recibo ) {
                     $credito = VwCredito::where('id_credito',$recibo->id)->first();
                     $fecha = date("d-m-Y");
-                    $saldoPendiente = $recibo->monto -$credito->cuota_mensual + $recibo->monto_mora;
+                    $saldoPendiente =( $credito->cuota_mensual + $recibo->monto_mora )- $recibo->monto;
                     $pdf = PDF::loadView('credits.reports.recipe', compact('recibo','fecha','credito','saldoPendiente'));
                     $pdfs[] =[
                         'nombre' => 'Recibo_'.$recibo->no_recibo.'_'.$recibo->nombre.'_'.$fecha.'.pdf',
