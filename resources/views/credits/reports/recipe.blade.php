@@ -112,7 +112,7 @@
                     <td>${{ number_format($recibo->monto - $recibo->monto_mora, 2, '.', ',') }}</td>
                 </tr>
 
-                @if ($recibo->monto_seguro)
+                @if ($recibo->monto_seguro && $recibo->monto_seguro > 0)
                     <tr>
                         <td>Pago de seguro de deuda </td>
                         <td>${{ number_format($recibo->monto_seguro, 2, '.', ',') }}</td>
