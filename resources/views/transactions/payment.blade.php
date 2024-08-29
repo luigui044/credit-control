@@ -86,13 +86,18 @@
 
                             <div class="col-md-4">
                                 <div class="form-group " id="div-cuota">
-                                    <label for="monto">Monto a pagar($)</label>
+                                    <label for="monto">Monto de cuota($)</label>
                                     <input type="text" class="form-control campo-requerido" id="monto" name="monto"
-                                        placeholder="Monto a pagar" required>
+                                        placeholder="Monto de cuota" required>
                                     @error('monto')
                                         <span class="alert text-danger alerta">El Campo de monto es requerido</span>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="montoSeguro">Monto de seguro($)</label>
+                                <input type="text" placeholder="Monto de seguro" class="form-control" name="montoSeguro"
+                                    id="montoSeguro">
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group " id="div-cuota">

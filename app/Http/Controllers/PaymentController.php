@@ -57,10 +57,11 @@ class PaymentController extends Controller
 
         $idCredito = $request->credito;
         $montoPago = $request->monto;
+        $montoSeguro = $request->montoSeguro ?? 0;
         $fecha = $request->fecha;
         $noRecibo = $request->recibo;
         try {
-            DB::statement('CALL pa_reg_pago(?,?,?,?)',[$idCredito,$montoPago,$fecha,$noRecibo]);
+            DB::statement('CALL pa_reg_pago(?,?,?,?,?)',[$idCredito,$montoPago,$montoSeguro,$fecha,$noRecibo]);
             alert()->success('Confirmación','Pago registrado éxitosamente.');
 
             return back();

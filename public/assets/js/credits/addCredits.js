@@ -153,6 +153,7 @@ function calcshow(amount, rate, numpay) {
     rate = (rate / 100);
     var prima = $('#prima option:selected');
     var primaMount = parseFloat(amount) * (prima.val() / 100);
+    primaMount = primaMount.toFixed(2);
     var primaMountInput = $('#primaMount');
     var seguro = $('input[name="seguro"]:checked').val()
     primaMountInput.val(primaMount)

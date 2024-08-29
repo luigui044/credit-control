@@ -29,10 +29,10 @@ class HomeController extends Controller
     {
         $acumulado = VwAcumuladoCredito::first();
         $estadoCuotas = VwClientesMora::selectRaw('COUNT(CASE WHEN cuotas_pendiente = 0 THEN 1 END) AS clientes_al_dia')
-        ->selectRaw('COUNT(CASE WHEN cuotas_pendiente > 0 THEN 1 END) AS clientes_con_mora')
+        ->selectRaw('COUNT(CASE WHEN cuotas_pendiente > 0 THEN 1 END) AS clientes_con_mora')->where('estado',1)
         ->first();
         $totalTransacciones = TTransaccione::selectRaw('SUM(monto) as monto')->where('tipo_transaccion','Cuota')->first();
-        $clientesMora = VwClientesMora::where('cuotas_pendiente', '>' ,0)->get();
+        $clientesMora = VwClientesMora::where('cuotas_pendiente', '>' ,0)->where('estado',1)->get();
         $pagosClientes =VwPagosCliente::all();
         JavaScript::put([
             'acumulado' => $acumulado,

@@ -87,6 +87,7 @@
                 <div><strong>Crédito No.: </strong> {{ $credito->no_credito }} <strong> Cuota mensual:</strong>
                     ${{ number_format($credito->cuota_mensual, 2, '.', ',') }} </div>
                 <div><strong>Fecha de pago:</strong> {{ \Carbon\Carbon::parse($recibo->fecha)->format('d/m/Y') }}</div>
+                <div><strong>No. Comprobante:</strong> {{ $recibo->no_recibo }}</div>
             </div>
         </div>
         <table class="table">
@@ -111,10 +112,28 @@
                     <td>${{ number_format($recibo->monto - $recibo->monto_mora, 2, '.', ',') }}</td>
                 </tr>
 
-
+                @if ($recibo->monto_seguro)
+                    <tr>
+                        <td>Pago de seguro de deuda </td>
+                        <td>${{ number_format($recibo->monto_seguro, 2, '.', ',') }}</td>
+                        <td>$0.00</td>
+                        <td>${{ number_format($recibo->monto_seguro, 2, '.', ',') }}</td>
+                    </tr>
+                @endif
             </tbody>
             <tfoot>
                 <tr>
+                    <td colspan="4">
+
+                        <h3 style="text-align: center"><b>Total pagado:</b>
+                            ${{ number_format($recibo->monto_seguro + $recibo->monto, 2, '.', ',') }}
+                        </h3>
+
+                    </td>
+                </tr>
+                <tr>
+
+
                     <td colspan="4">
 
                         <h3 id="saldo-pendiente"><b>Saldo pendiente de cuota:</b>
